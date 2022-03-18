@@ -68,6 +68,7 @@ int main(){
                 printall(h);
                 break;
             case 'Q' ://완료
+                cout << "Thank you, Bye!" << endl;
                 break;
         }
     } while( c != 'Q');
@@ -143,45 +144,15 @@ void swim(Heap* h,int index){
 }
 
 void sink(Heap* h,int index){
-    //자식과 비교하면서 자신이 자식보다 크면, swap();
-    //언제까지? 자식과 비교해서 클때까지 && 젤 leaf가 아닐떄
-    //parent index = p_i
-    //leftchildindex = lci
-    //rightchildindex = rci
-    int p_i = index;
-    int lci = (index*2);
-    int rci = (index*2)+1;
-    int check = 0;
 
-    while( p_i * 2 <= h -> N){
-        int sci = 0;
-        // if(h->nodes[p_i].score > h->nodes[lci].score){
-        //     swap(h,p_i,lci);
-        //     p_i = lci;
-        //     check = 1;
-        // }
-        // if(h->nodes[p_i].score < h->nodes[rci].score){
-        //     swap(h,p_i,rci);
-        //     p_i = rci;
-        //     check = 1;
-        // }
-        //lci랑 rci를 비교해서 더 작은 친구와 바꿈.
-          //먼저 lci랑 rci중 더 작은 친구를 구하기.
-          //그리고 부모가 더 작은 친구보다 작다면,바꾸기.
-          //작지않다면 반복문 탈출.
+    while( index * 2 <= h -> N){
+        int j = 2 * index;
 
-        if(h->nodes[lci].score > h-> nodes[rci].score) sci = rci;
-        else sci = lci;
+        if( j < h->N && h->nodes[j].score > h-> nodes[j+1].score ) j = j + 1;
 
-        if(h->nodes[p_i].score > h->nodes[sci].score){
-            swap(h,p_i,sci);
-            p_i = sci;
-            check = 1;
-        }
-        if(check == 1){
-            lci = (p_i*2);
-            rci = (p_i*2)+1;
-            check = 0;
+        if(h->nodes[index].score > h->nodes[j].score){
+            swap(h,index,j);
+            index = j;
         }
         else break;
     }
