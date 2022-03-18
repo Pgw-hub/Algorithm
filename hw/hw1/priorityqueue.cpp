@@ -1,15 +1,16 @@
+//reference
+//1.강의슬라이드 chapter 6, page 3-5
+//2.datasturture heap lecture, pdf by prof yeongsup kim
+
 #include <iostream>
 
 using namespace std;
 
+
+//structure
 struct Element {
     string name;
     float score;
-
-    // Element(string k, float v){
-    //     name = k;
-    //     score = v;
-    // };
 };
 
 struct Heap {
@@ -22,6 +23,7 @@ struct Heap {
     };
 };
 
+//function prototypes
 void grow(Heap* h,string key, float value);
 void trim(Heap* h);
 void printall(Heap* h);
@@ -29,6 +31,7 @@ void change(Heap* h);
 void swim(Heap* h,int index);
 void sink(Heap* h,int index);
 void swap(Heap* h,int i,int j);
+
 
 int main(){
 
@@ -130,16 +133,17 @@ void printall(Heap* h){
 void swim(Heap* h,int index){
     //부모가 자식보다 크면 바꿈. 
     //부모는 현재 인덱스에서 /2한것임.
-//    if(index <= 2) return;
-//    int c_i = index;
-//    int p_i = c_i/2;
-//   I if(h->N >1)
+    //    if(index <= 2) return;
+    //    int c_i = index;
+    //    int p_i = c_i/2;
+    //   I if(h->N >1)
     while(h->nodes[index/2].score > h->nodes[index].score && index >1){
-        //바꾸고, 그 바꾼 친구의 조부모와 또 비교해야함. 그럼 인덱스를 
+        //바꾸고, 그 바꾼 친구의 조부모와 또 비교해야함.
         swap(h,index/2,index);
         index = index/2;
-//        c_i = p_i;//스왑되면 부모를 자식으로 만들고,
-//        p_i = c_i/2;// 조부모님을 결정해줌.
+    //        c_i = p_i;//스왑되면 부모를 자식으로 만들고,
+    //        p_i = c_i/2;// 조부모님을 결정해줌.
+    //j 변수 하나로 간단히.
     }
 }
 
@@ -149,7 +153,7 @@ void sink(Heap* h,int index){
         int j = 2 * index;
 
         if( j < h->N && h->nodes[j].score > h-> nodes[j+1].score ) j = j + 1;
-
+        //trim한 후에 trim된 것을 택하지 않아야 함.
         if(h->nodes[index].score > h->nodes[j].score){
             swap(h,index,j);
             index = j;
