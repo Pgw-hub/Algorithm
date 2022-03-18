@@ -23,8 +23,10 @@ struct Heap {
 };
 
 void grow(Heap* h,string key, float value);
+void trim(Heap* h);
 void printall(Heap* h);
 void swim(Heap* h,int index);
+void sink(Heap* h,int index);
 void swap(Heap* h,int i,int j);
 
 int main(){
@@ -56,7 +58,7 @@ int main(){
                 swim(h,h->N);
                 break;
             case 'D' :
-                cout << "this is D" << endl;
+                trim(h);
                 break;
             case 'C' :
                 break;
@@ -72,15 +74,23 @@ int main(){
 }
 
 
-//fuction
-//grow(I), trim(D), replace(C), printall(P) swim , sink , swap
+// fuction
+// replace(C),
+// swim , swap , sink, grow(I), printall(P), trim(D)
 
 void grow(Heap* h,string key, float value){
     // h -> nodes[h->N].name = key;
     // h -> nodes[h->N].score = value;
     h -> N++; 
     h -> nodes[h->N] = {key, value};
-    
+    cout << "New element [" << h->nodes[h->N].name << "," << h->nodes[h->N].score << "]" << " is inserted." << endl << endl;
+}
+
+void trim(Heap* h){
+    cout << "[" << h->nodes[1].name << "," << h->nodes[1].score << "]" << " is deleted." << endl << endl;
+    swap(h,h->N,1);
+    h -> N--;
+    sink(h,1);
 }
 
 void printall(Heap* h){
@@ -101,6 +111,37 @@ void swim(Heap* h,int index){
         swap(h,p_i,c_i);
         c_i = p_i;//스왑되면 부모를 자식으로 만들고, 
         p_i = c_i/2;// 조부모님을 결정해줌.
+    }
+}
+
+void sink(Heap* h,int index){
+    //자식과 비교하면서 자신이 자식보다 크면, swap();
+    //언제까지? 자식과 비교해서 클때까지 && 젤 leaf가 아닐떄
+    //parent index = p_i
+    //leftchildindex = lci
+    //rightchildindex = rci
+    int p_i = index;
+    int lci = (index*2);
+    int rci = (index*2)+1;
+    int check = 0;
+
+    while( p_i * 2 <= h -> N){
+        if(h->nodes[p_i].score > h->nodes[lci].score){
+            swap(h,p_i,lci);
+            p_i = lci;
+            check = 1;
+        }
+        if(h->nodes[p_i].score < h->nodes[rci].score){
+            swap(h,p_i,rci);
+            p_i = rci;
+            check = 1;
+        }
+        if(check == 1){
+            lci = (p_i*2);
+            rci = (p_i*2)+1;
+            check = 0;
+        }
+        else break;
     }
 }
 
