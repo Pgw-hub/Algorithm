@@ -9,7 +9,7 @@ typedef struct{
     int start;
     int finish;
 } Time;
-#define SIZE 100
+#define SIZE 10
 
 void printpair(Time time);
 void printpair(Time* time, int N);
@@ -42,9 +42,9 @@ int main(){
         }
     }
     
-    //cout << "****Making random pair****" << endl << endl;
-    //printpair(t,SIZE);
-    //cout << endl << endl;
+    cout << "****Making random pair****" << endl << endl;
+    printpair(t,SIZE);
+    cout << endl << endl;
 
 
     //GREEDY
@@ -57,8 +57,8 @@ int main(){
     cout << endl << "(GREEDY TIME)_at size "<< SIZE <<" = "<< timeinSeconds << endl << endl;
 
     //sorted pair list for dp
-    //cout << "****USING SORTED LIST FOR DP****" << endl << endl;
-    //printpair(t,SIZE);
+    cout << "****USING SORTED LIST FOR DP****" << endl << endl;
+    printpair(t,SIZE);
 
 
     //DP
@@ -82,15 +82,15 @@ int greedy(Time* t){
     //define start condition
     int takes = 1;
     int prev = t[1].finish;
-    //cout << "pair is";
-    //printpair(t[1]);
-    //cout << endl;
+    cout << "pair is";
+    printpair(t[1]);
+    cout << endl;
 
     for(int i = 2; i < SIZE + 1; i++){
         if(t[i].start >= prev) {
-            //cout << "pair is ";
-            //printpair(t[i]);
-            //cout << endl;
+            cout << "pair is ";
+            printpair(t[i]);
+            cout << endl;
             takes++;
             prev = t[i].finish;
         }
@@ -120,7 +120,7 @@ int dp(Time* t){
         }
     }
     //print_dptable
-    //print_dptable(c,SIZE + 2);
+    print_dptable(c,SIZE + 2);
 
     return c[1][SIZE + 1] + 1;
 };    
