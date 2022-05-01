@@ -1,25 +1,28 @@
 #include <iostream>
-#include <vector>
+#include <stack>
+
 using namespace std;
 
+void modifier(char element);
+
 int main(){
-	int num;
-	vector<char> v;
-
+	string num;
 	cin >> num;
-	
-	while(num != 0){
-		num = num / 2;
-		int check = num % 2;	
-		if(check == 1) v.push_back('1');
-		else v.push_back('0');
+	for(int i=0; i < num.size(); i++){
+		modifier(num[i]);
 	}
+}
 
-	for(int i = v.size(); i >= 0; i--){
-		cout << v[i];
+void modifier(char element){
+	stack<int> s;
+	int a = element - '0';
+
+	while(a){
+		s.push(a % 2);
+		a = a / 2;
 	}
-
-	
-
-
+	while(!s.empty()){
+		cout << s.top();
+		s.pop();
+	}
 }
