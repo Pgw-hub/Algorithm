@@ -1,20 +1,22 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
 int main(){
 	int c;
-	long a,b;
+	int a,b;
+	int answer;
 	
 	cin >> c;
 
-	while(c){
+	while(c--){
 		cin >> a >> b;
-		long long p = pow(a,b);
-		long x = p % 10;
-		if( x  == 0) cout << "10" << endl;
-		else cout << x << endl;
+		b = (b % 4) + 4;
+		answer = a;
+			for(int i = 1; i < b; i++){
+				answer = (answer * a) % 10;
+			}
+		if(answer  == 0) cout << 10 << endl;
+		else cout << answer << endl;
 	}
-
 }
