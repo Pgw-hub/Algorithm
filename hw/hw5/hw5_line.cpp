@@ -17,6 +17,7 @@ int d[11];
 
 
 void dijkstra(int start);
+void printResult(int source, int d[], vector<string> region);
 
 
 int main(){
@@ -42,6 +43,7 @@ int main(){
 
     //vector에 각각의 요소 넣기.
     vector <vector<string> > vec;
+    vector <string> region;
     vec.push_back({"0"});//for index matching
     for(int j = 1; j <= 10; j++){
         vector <string> v;
@@ -55,6 +57,7 @@ int main(){
         v.erase(remove(v.begin(), v.end(), ""), v.end());
         // cout << endl;
         vec.push_back(v);
+        region.push_back(v[0]);
         // for(int k = 0; k < v.size(); k++){
         //     cout <<"in [" << k <<"] vector = "<< v[k] << endl;
         // }
@@ -89,27 +92,37 @@ int main(){
         }
     }
 	
+    //지역출력
+    cout << "                 ";
+    for(int i = 0; i < region.size(); i++){
+        // printf("%s ",region.c_str(i));
+        // cout.width(10);
+        // cout.fill();
+        cout << setw(15) << region[i];
+    }
+    cout << endl;
+    
     for(int node = 1; node <= number; node++){
         //최소거리 초기화 
         for(int i = 1; i <= number; i++) d[i] = INF;
         
         dijkstra(node);
+
+        printResult(node, d, region);
         
-        for(int i = 1; i <= number; i++)  printf("node [%d] : dist to %d = %d\n",node, i ,d[i]);
-           
-        cout << endl;
+        //for(int i = 1; i <= number; i++)  printf("node [%d] : dist to %d = %d\n",node, i ,d[i]);
+       // cout << endl;
     }
 }
 
-
-
-
-
-
-
-
-
-
+void printResult(int source, int d[], vector<string> region){
+    //    printf("node [%d] : dist to %d = %d\n",source, i ,d[i]);
+    cout <<setw(15) << region[source - 1];
+    for(int i = 1; i <= number; i++){
+        cout << setw(15) << d[i];
+    }
+    cout << endl;
+}
 
 void dijkstra(int start){
 	d[start] = 0;
