@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -21,9 +23,13 @@ int main(){
         getline(fin,line[i]);
         i++;
     }
-
+    cout << "----------------native line-----------------" << endl;
+    
     for(int j =0; j < i; j++){
         cout <<"line "<< j << " : "<< line[j] << endl;
     }
+
+
+    
 
 }
