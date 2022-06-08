@@ -1,7 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include <cstdlib>
 #include <algorithm>
 #include <ctime>
+#include <vector>
 
 using namespace std;
 
@@ -9,17 +11,35 @@ typedef struct{
     int start;
     int finish;
 } Time;
-#define SIZE 100
+// #define SIZE 100
+
 
 void printpair(Time time);
 void printpair(Time* time, int N);
-void print_dptable(int t[][SIZE + 2], int N);
+// void print_dptable(int t[][SIZE + 2], int N);
 bool cmp(const Time &t1, const Time &t2);
-int greedy(Time* t);
-int dp(Time* t);
-
+int greedy(Time* t, int SIZE);
+int dp(Time* t, int SIZE);
+int sub_main(int SIZE);
 
 int main(){
+    int num[5] = {10,100,1000,10000,100000};
+
+    cout << "---------------------------------------------------------------" << endl;
+    cout << " Number   |" << "          Execution time in microseconds" << endl;
+    cout << " of jobs  |" << "     Greedy             | Dynamic Programming" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    int n = 0;
+    while(1){
+        printf("%9d | \t",num[n]);
+        sub_main(num[n]);
+        n++;
+        if(n == 5) break;
+    }
+    cout << "---------------------------------------------------------------" << endl;
+}
+
+int sub_main(int SIZE){
 
     Time t[SIZE + 2];
     srand(408);
@@ -45,37 +65,38 @@ int main(){
     //cout << "****Making random pair****" << endl << endl;
     //printpair(t,SIZE);
     //cout << endl << endl;
-
-
+    
     //GREEDY
     clock_t startTime = clock();
-    int temp = greedy(t);
+    int temp = greedy(t,SIZE);
     clock_t endTime= clock();
-    cout <<"(GREEDY ANSWER)_max num of activity is = " << temp;
     endTime = endTime - startTime;
     float timeinSeconds = endTime /  (float) CLOCKS_PER_SEC;
-    cout << endl << "(GREEDY TIME)_at size "<< SIZE <<" = "<< timeinSeconds << endl << endl;
-
+    cout << setw(10)  << timeinSeconds << "              ";
+ 
     //sorted pair list for dp
     //cout << "****USING SORTED LIST FOR DP****" << endl << endl;
     //printpair(t,SIZE);
 
 
     //DP
-    startTime = clock();
-    temp = dp(t);
-    endTime= clock();
-    cout << "(DP ANSWER)_max num of activity is = " << temp;
-    endTime = endTime - startTime;
-    timeinSeconds = endTime /  (float) CLOCKS_PER_SEC;
-    cout << endl << "(DP TIME)_at size "<< SIZE <<" = "<< timeinSeconds << endl << endl;
-    
+    if(SIZE < 10000){
+        startTime = clock();
+        temp = dp(t,SIZE);
+        endTime= clock();
+        endTime = endTime - startTime;
+        timeinSeconds = endTime /  (float) CLOCKS_PER_SEC;
+        cout << timeinSeconds << endl;
+    }
+    else{
+        cout << endl;
+    }
 }
 
 
 //greedy
-int greedy(Time* t){
-    cout << "****GREEDY****" << endl;
+int greedy(Time* t,int SIZE){
+    // cout << "****GREEDY****" << endl;
     //sorting
     sort(t,t+SIZE,cmp);
 
@@ -98,10 +119,14 @@ int greedy(Time* t){
     return takes;
 }
 
-int dp(Time* t){
-    cout << "****DP****" << endl;
+
+
+int dp(Time* t, int SIZE){
+    // cout << "****DP****" << endl;
     //generating dptable c with additional a0, a11
-    int c[SIZE + 2][SIZE + 2] = {};
+    
+    int c[1000 + 2][1000 + 2] = {};
+
 
     int i,j,k;
     int temp;
@@ -126,17 +151,17 @@ int dp(Time* t){
 };    
 
 //printing dptable
-void print_dptable(int t[][SIZE + 2], int N){
-    for(int i = 0; i < N; i++) cout << i << "  ";
-    cout << endl;
-    cout << "-------------------------------------" << endl;
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            cout << t[i][j] << "  ";    
-        }
-        cout << endl;
-    }
-}
+// void print_dptable(int t[][SIZE + 2], int N){
+//     for(int i = 0; i < N; i++) cout << i << "  ";
+//     cout << endl;
+//     cout << "-------------------------------------" << endl;
+//     for(int i = 0; i < N; i++){
+//         for(int j = 0; j < N; j++){
+//             cout << t[i][j] << "  ";    
+//         }
+//         cout << endl;
+//     }
+// }
 
 //compare function in ::sort()
 bool cmp(const Time &t1, const Time &t2){
