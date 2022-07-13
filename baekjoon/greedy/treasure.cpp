@@ -11,6 +11,7 @@ int main(){
 
 	cin >> n;
 
+	//make the pq1 negative to take out the smallest entry from the queue
 	for(int i = 0; i < 2; i++){
 		for(int j = 0; j < n; j++){
 			if( i == 0){
@@ -24,6 +25,7 @@ int main(){
 		}
 	} 
 
+	
 	int sum = 0;
 	while(!pq1.empty()){
 		sum += ( -pq1.top() * pq2.top() ) ;
