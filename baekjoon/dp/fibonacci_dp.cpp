@@ -9,6 +9,7 @@ typedef struct {
 
 } CNT;
 
+//bottom up
 void fibonacci(int n,CNT* fib) {
 
     fib[0].zero = 1;
@@ -20,8 +21,6 @@ void fibonacci(int n,CNT* fib) {
     }
 
 }
-
-
 
 int main(){
     int a;
@@ -37,6 +36,5 @@ int main(){
         cout << fib[N].zero << " " << fib[N].one << endl;
 
     }
-
     return 0; 
 }
