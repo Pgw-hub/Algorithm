@@ -25,7 +25,7 @@ int main(){
 		}
 	} 
 
-	
+	//결과에서는 출력물만 보기 때문에.재배열 상관없음.
 	int sum = 0;
 	while(!pq1.empty()){
 		sum += ( -pq1.top() * pq2.top() ) ;
@@ -35,6 +35,5 @@ int main(){
 
 	cout << sum; 
 
-
-return 0;
+	return 0;
 }

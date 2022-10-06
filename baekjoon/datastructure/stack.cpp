@@ -1,22 +1,45 @@
 #include <iostream>
 
-#define Max 10001
 
 using namespace std;
 
+struct Node {
+	int data;
+	Node* next;
 
-typedef struct {
-	
-	int curr = 0;
-	int size = 1;
-	int* st;
+	//constructor
+	Node(const int i = 0; Node* n  = nullptr){
+		data = i, next = n;
+	}
 
-} Stack;
+	//deconstructor
+	~Node(){}
+};
+
+Node* push(Node* p, int val){
+	p = new Node{val, p};
+	return p;
+}
+
+void show(Node* p){
+	for(Node* curr= p; curr != nullptr; curr = curr -> next){
+		cout << "\t" << curr -> data;
+	}
+}
 
 int main(){
+	Node* stack = nullptr;
 	
-	Stack stack
+	while(1){
+		int val;
+		cin >> val;
+		if(val == 99) break;
 
+		stack = push(stack, val);
+	}
+
+	show(stack);
 
 
 }
+
